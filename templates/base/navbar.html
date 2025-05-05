@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="bi bi-shop"></i> UnamaBay
+        </a>
+
+        <!-- Botão Hambúrguer -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Itens do Menu -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            {% if user.is_authenticated %}
+                <!-- Menu para usuários logados -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'produtos:lista_produtos' %}">
+                            <i class="bi bi-box-seam"></i> Produtos
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_staff %}
+                    <!-- Dropdown Admin -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-gear"></i> Administração
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if perms.produtos.pode_adicionar_produto %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'produtos:adicionar_produto' %}">
+                                    <i class="bi bi-plus-circle"></i> Adicionar Produto
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'admin:produtos_produto_changelist' %}">
+                                    <i class="bi bi-pencil"></i> Gerenciar Produtos
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">
+                                    <i class="bi bi-speedometer2"></i> Painel Admin
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    <!-- Carrinho (só para logados) -->
+                    <li class="nav-item me-3">
+                        <a class="nav-link position-relative" href="{% url 'cart:detail' %}">
+                            <i class="bi bi-cart3"></i> Carrinho
+                            {% if cart.items.count > 0 %}
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1">
+                                {{ cart.items.count }}
+                            </span>
+                            {% endif %}
+                        </a>
+                    </li>
+
+                    <!-- Dropdown do Usuário -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" action="{% url 'accounts:logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="bi bi-box-arrow-right"></i> Sair
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            {% else %}
+                <!-- Menu para visitantes (não logados) -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light me-2" href="{% url 'accounts:login' %}">
+                            <i class="bi bi-box-arrow-in-right"></i> Entrar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light" href="{% url 'accounts:signup' %}">
+                            <i class="bi bi-person-plus"></i> Cadastrar
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>

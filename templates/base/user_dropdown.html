@@ -1,0 +1,32 @@
+<div class="dropdown">
+    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+        <i class="bi bi-person-circle"></i> {{ user.username }}
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <span class="dropdown-item-text">
+                <i class="bi bi-person-badge"></i> {{ user.get_full_name|default:user.username }}
+            </span>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item" href="{% url 'profile' %}">
+                <i class="bi bi-person"></i> Meu Perfil
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'produtos:lista_produtos' %}">
+                <i class="bi bi-cart"></i> Meus Pedidos
+            </a>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item text-danger">
+                    <i class="bi bi-box-arrow-right"></i> Sair
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>

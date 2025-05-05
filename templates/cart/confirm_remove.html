@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4><i class="bi bi-exclamation-triangle"></i> Confirmar Remoção</h4>
+        </div>
+        <div class="card-body">
+            <h5>Você tem certeza que deseja remover este item do carrinho?</h5>
+            <div class="alert alert-warning mt-3">
+                <strong>Item:</strong> {{ object.product.nome }}<br>
+                <strong>Quantidade:</strong> {{ object.quantity }}<br>
+                <strong>Subtotal:</strong> R$ {{ object.total_price }}
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'cart:detail' %}" class="btn btn-secondary me-md-2">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Confirmar Remoção
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

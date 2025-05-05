@@ -1,0 +1,86 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Carrossel -->
+<div id="siteCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner rounded">
+        
+        <div class="carousel-item active">
+            <div class="d-block w-100 bg-primary" style="height: 400px;">
+                <div class="d-flex h-100 align-items-center justify-content-center text-white">
+                    <div class="text-center p-4">
+                        <h2>Bem-vindo ao UnamaBay!</h2>
+                        <p class="lead">A melhor experiência em compras online de produtos da Unama</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="carousel-item">
+            <div class="d-block w-100 bg-success" style="height: 400px;">
+                <div class="d-flex h-100 align-items-center justify-content-center text-white">
+                    <div class="text-center p-4">
+                        <h2>Frete Grátis</h2>
+                        <p class="lead">Para compras Dentro de Belém</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="carousel-item">
+            <div class="d-block w-100 bg-warning" style="height: 400px;">
+                <div class="d-flex h-100 align-items-center justify-content-center">
+                    <div class="text-center p-4">
+                        <h2>Ofertas Exclusivas</h2>
+                        <p class="lead">Cadastre-se para receber promoções</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#siteCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#siteCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+
+<div class="d-flex justify-content-between mb-4">
+    <h2>Destaques</h2>
+</div>
+
+<div class="row">
+    {% for produto in produtos %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" class="card-img-top" alt="{{ produto.nome }}" style="height: 200px; object-fit: contain;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ produto.nome }}</h5>
+                <p class="card-text">{{ produto.descricao|truncatechars:100 }}</p>
+                <p class="text-success fw-bold">R$ {{ produto.preco }}</p>
+            </div>
+            <div class="card-footer bg-white">
+                <a href="{% url 'produtos:detalhe_produto' produto.pk %}" class="btn btn-outline-primary w-100">
+                    Ver Detalhes
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            Nenhum produto disponível no momento.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

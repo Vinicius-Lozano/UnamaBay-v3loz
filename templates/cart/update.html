@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card border-warning">
+        <div class="card-header bg-warning text-dark">
+            <h4><i class="bi bi-pencil-square"></i> Atualizar Quantidade</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    {% if object.product.imagem %}
+                    <img src="{{ object.product.imagem.url }}" class="img-fluid rounded">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h5>{{ object.product.nome }}</h5>
+                    <p class="text-muted">Preço unitário: R$ {{ object.product.preco }}</p>
+                    <p class="text-muted">Estoque disponível: {{ object.product.estoque }}</p>
+                </div>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'cart:detail' %}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Atualizar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

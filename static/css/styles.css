@@ -1,0 +1,206 @@
+/* ====================== */
+/* VARIÁVEIS E CONFIGURAÇÕES GLOBAIS */
+/* ====================== */
+:root {
+    --bs-primary: #37A45A;
+    --bs-secondary: #1E5738;
+    --bs-light-green: rgba(55, 164, 90, 0.1);
+    --bs-border-radius: 12px;
+    --bs-transition: all 0.3s ease;
+}
+
+/* ====================== */
+/* COMPONENTES GLOBAIS */
+/* ====================== */
+
+/* Navbar */
+.navbar.bg-primary {
+    background-color: var(--bs-primary) !important;
+    transition: var(--bs-transition);
+}
+
+.bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+/* Cards */
+.card {
+    transition: transform 0.3s;
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.1);
+}
+
+/* Botões */
+.btn-custom {
+    background-color: var(--bs-primary); 
+    border-color: var(--bs-secondary);
+    color: white;
+    transition: var(--bs-transition);
+    border-radius: var(--bs-border-radius);
+    font-weight: 600;
+}
+
+.btn-custom:hover {
+    background-color: var(--bs-secondary);  
+    border-color: #267945;
+    color: white; 
+    transform: translateY(-2px);
+}
+
+.btn-custom:focus {
+    outline: none;  
+    box-shadow: 0 0 0 0.25rem rgba(55, 164, 90, 0.25);
+}
+
+/* ====================== */
+/* FORMULÁRIOS */
+/* ====================== */
+
+.product-form-card {
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+}
+
+.product-form-header {
+    background-color: var(--bs-primary);
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: var(--bs-border-radius);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.product-form-control {
+    border: 2px solid #dee2e6;
+    border-radius: var(--bs-border-radius);
+    padding: 12px 15px;
+    transition: var(--bs-transition);
+    width: 100%;
+}
+
+.product-form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(55, 164, 90, 0.25);
+}
+
+.product-form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.product-form-submit {
+    background-color: var(--bs-primary);
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: var(--bs-border-radius);
+    width: 100%;
+    transition: var(--bs-transition);
+}
+
+.product-form-submit:hover {
+    background-color: var(--bs-secondary);
+    transform: translateY(-2px);
+}
+
+.product-form-file {
+    padding: 8px 15px;
+    line-height: 1.5;
+}
+
+/* ====================== */
+/* PÁGINA DE PRODUTOS */
+/* ====================== */
+
+/* Cards de Produto */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.product-price {
+    color: var(--bs-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.no-image-placeholder {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+/* Página de Detalhes */
+.product-detail-image {
+    background-color: #f8f9fa;
+    border-radius: var(--bs-border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.product-info-badge {
+    background-color: var(--bs-light-green);
+    color: var(--bs-primary);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.stock-info {
+    color: #6c757d;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ====================== */
+/* UTILITÁRIOS */
+/* ====================== */
+
+.rounded-2 {
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.text-primary-custom {
+    color: var(--bs-primary) !important;
+}
+
+.bg-light-green {
+    background-color: var(--bs-light-green) !important;
+}
+
+/* ====================== */
+/* RESPONSIVIDADE */
+/* ====================== */
+
+@media (max-width: 768px) {
+    .product-form-header {
+        font-size: 1.25rem;
+        padding: 10px;
+    }
+    
+    .product-card {
+        margin-bottom: 20px;
+    }
+}

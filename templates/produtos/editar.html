@@ -1,0 +1,117 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-0 product-form-card">
+                <div class="card-body p-4">
+                    <!-- Cabeçalho com mesmo estilo -->
+                    <h2 class="text-center product-form-header p-2 rounded-2 mb-4">
+                        Editar Produto
+                    </h2>
+                    
+                    <form method="post" enctype="multipart/form-data" class="mt-4">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger mb-4">
+                            Por favor, corrija os erros abaixo.
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Campos do formulário -->
+                        <div class="mb-4">
+                            <label for="id_nome" class="product-form-label">Nome do Produto</label>
+                            <input type="text" 
+                                   name="nome" 
+                                   id="id_nome" 
+                                   value="{{ form.nome.value|default:'' }}"
+                                   class="product-form-control"
+                                   required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="id_descricao" class="product-form-label">Descrição</label>
+                            <textarea name="descricao" 
+                                      id="id_descricao" 
+                                      class="product-form-control"
+                                      rows="4">{{ form.descricao.value|default:'' }}</textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="id_preco" class="product-form-label">Preço</label>
+                                <input type="number" 
+                                       name="preco" 
+                                       id="id_preco" 
+                                       value="{{ form.preco.value|default:'' }}"
+                                       class="product-form-control"
+                                       step="0.01"
+                                       required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label for="id_estoque" class="product-form-label">Estoque</label>
+                                <input type="number" 
+                                       name="estoque" 
+                                       id="id_estoque" 
+                                       value="{{ form.estoque.value|default:'' }}"
+                                       class="product-form-control"
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="id_categoria" class="product-form-label">Categoria</label>
+                            <select name="categoria" 
+                                    id="id_categoria" 
+                                    class="product-form-control">
+                                {% for value, label in form.categoria.field.choices %}
+                                    <option value="{{ value }}" {% if form.categoria.value == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="id_imagem" class="product-form-label">Imagem do Produto</label>
+                            {% if produto.imagem %}
+                            <div class="mb-3">
+                                <img src="{{ produto.imagem.url }}" class="img-thumbnail" style="max-height: 150px;">
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="imagem-clear" id="imagem-clear">
+                                    <label class="form-check-label" for="imagem-clear">
+                                        Remover imagem atual
+                                    </label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <input type="file" 
+                                   name="imagem" 
+                                   id="id_imagem" 
+                                   class="product-form-control product-form-file"
+                                   accept="image/*">
+                        </div>
+                        
+                        <!-- Botões -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'produtos:detalhe_produto' produto.pk %}" 
+                               class="btn btn-lg btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            
+                            <button type="submit" class="btn btn-lg text-white fw-bold"
+                                    style="background-color: #37A45A;">
+                                <i class="bi bi-check-circle"></i> Salvar Alterações
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

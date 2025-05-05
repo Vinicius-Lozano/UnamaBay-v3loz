@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+  
+        <div class="col-md-6 d-flex rounded-start-4 justify-content-center align-items-center" style="background: #37A45A;">
+            <div class="featured-img mb-3 text-center">
+                <img src="{% static 'img/1.png' %}" class="img-fluid mb-3" style="max-height: 100vh;">
+                <p class="text-white fs-2 fw-semibold">Junte-se à UnamaBay.</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex">
+            <div class="card shadow w-100 rounded-end-4 border-0">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4 p-2 rounded-2 text-white" style="background: #37A45A; font-weight: 600;">Cadastre-se</h2>
+                    
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger mb-4">
+                            Por favor, corrija os erros abaixo.
+                        </div>
+                        {% endif %}
+                        
+                        
+                        <div class="mb-4">
+                            <label for="id_name" class="form-label fw-semibold">Nome Completo</label>
+                            <input type="text" 
+                                   name="name"
+                                   id="id_name"
+                                   value="{{ form.name.value|default:'' }}"
+                                   class="form-control form-control-lg py-3"
+                                   required>
+                        </div>
+                        
+                        
+                        <div class="mb-4">
+                            <label for="id_email" class="form-label fw-semibold">Email</label>
+                            <input type="email" 
+                                   name="email"
+                                   id="id_email"
+                                   value="{{ form.email.value|default:'' }}"
+                                   class="form-control form-control-lg py-3"
+                                   required>
+                        </div>
+                        
+                        
+                        <div class="mb-4">
+                            <label for="id_username" class="form-label fw-semibold">Usuário</label>
+                            <input type="text" 
+                                   name="username"
+                                   id="id_username"
+                                   value="{{ form.username.value|default:'' }}"
+                                   class="form-control form-control-lg py-3"
+                                   required>
+                        </div>
+                        
+                        
+                        <div class="mb-4">
+                            <label for="id_password1" class="form-label fw-semibold">Senha</label>
+                            <input type="password" 
+                                   name="password1"
+                                   id="id_password1"
+                                   class="form-control form-control-lg py-3"
+                                   required>
+                        </div>
+                        
+                        
+                        <div class="mb-4">
+                            <label for="id_password2" class="form-label fw-semibold">Confirme sua Senha</label>
+                            <input type="password" 
+                                   name="password2"
+                                   id="id_password2"
+                                   class="form-control form-control-lg py-3"
+                                   required>
+                        </div>
+                        
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-lg py-3 text-white fw-bold" 
+                                    style="background-color: #37A45A;">
+                                Cadastrar
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="mb-0">Já tem uma conta? <a href="{% url 'accounts:login' %}" class="text-decoration-none fw-semibold" style="color: #37A45A;">Faça login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
