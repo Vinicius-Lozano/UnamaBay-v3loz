@@ -22,6 +22,56 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Seção de Pedidos -->
+                    <div class="mt-5">
+                        <h4 class="mb-4">Meus Pedidos</h4>
+                        
+                        {% if pedidos %}
+                            <div class="list-group">
+                                {% for pedido in pedidos %}
+                                    <div class="list-group-item mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h5>Pedido #{{ pedido.id }}</h5>
+                                                <small class="text-muted">
+                                                    {{ pedido.criado_em|date:"d/m/Y H:i" }}
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <span class="badge bg-primary">
+                                                    Total: R$ {{ pedido.total }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-2">
+                                            <h6>Produtos:</h6>
+                                            <ul class="list-unstyled">
+                                                {% for item in pedido.itens.all %}
+                                                    <li>
+                                                        {{ item.quantidade }}x {{ item.produto.nome }}
+                                                        <span class="text-muted">
+                                                            (R$ {{ item.preco_unitario }} cada)
+                                                        </span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        
+                                        <a href="{% url 'pedidos:pedido_detalhe' pedido.pk %}" 
+                                           class="btn btn-sm btn-outline-secondary mt-2">
+                                            Ver detalhes
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                Você ainda não realizou nenhum pedido.
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

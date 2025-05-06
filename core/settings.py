@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'produtos',
     'cart.apps.CartConfig',
-    'pedidos',
+    'pedidos.apps.PedidosConfig',
 ]
 
 MIDDLEWARE = [

@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from pedidos.models import Pedido
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -31,6 +32,13 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pedidos'] = Pedido.objects.filter(
+            usuario=self.request.user
+        ).order_by('-criado_em').prefetch_related('itens__produto')
+        return context
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('home')

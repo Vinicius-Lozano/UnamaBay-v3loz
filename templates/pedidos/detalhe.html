@@ -30,7 +30,7 @@
                         <td>{{ item.produto.nome }}</td>
                         <td>{{ item.quantidade }}</td>
                         <td>R$ {{ item.preco_unitario }}</td>
-                        <td>R$ {{ item.get_subtotal }}</td>
+                        <td>R$ {{ item.get_subtotal|floatformat:2 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
