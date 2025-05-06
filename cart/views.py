@@ -24,7 +24,7 @@ class CartAddView(LoginRequiredMixin, View):
         cart = Cart.objects.get_or_create(user=request.user)[0]
         product = get_object_or_404(Produto, id=product_id)
         form = CartAddForm(request.POST)
-
+        
         if form.is_valid():
             cd = form.cleaned_data
             quantity = cd['quantity']
@@ -36,8 +36,9 @@ class CartAddView(LoginRequiredMixin, View):
             if (existing_quantity + quantity) > product.estoque:
                 messages.error(request, 
                     f"Estoque insuficiente. Disponível: {product.estoque - existing_quantity}")
-                return redirect('produtos:detalhe_produto', pk=product_id)
-
+                return redirect(request.POST.get('next', 'produtos:lista_produtos'))
+            
+            
             item, created = CartItem.objects.get_or_create(
                 cart=cart,
                 product=product,
@@ -45,20 +46,15 @@ class CartAddView(LoginRequiredMixin, View):
             )
             
             if not created:
-                if (item.quantity + quantity) > product.estoque:
-                    messages.error(request,
-                        f"Estoque insuficiente após atualização. Disponível: {product.estoque - item.quantity}")
-                    return redirect('cart:detail')
-                
                 item.quantity += quantity
                 item.save()
-                msg = f"Quantidade de {product.nome} atualizada!"
+                msg = f"Quantidade de {product.nome} atualizada para {item.quantity}!"
             else:
-                msg = f"{product.nome} adicionado ao carrinho!"
-                
+                msg = f"{quantity}x {product.nome} adicionado ao carrinho!"
+            
             messages.success(request, msg)
-
-        return redirect('cart:detail')
+        
+        return redirect(request.POST.get('next', 'cart:detail'))
 
 class CartUpdateView(LoginRequiredMixin, UpdateView):
     model = CartItem  
