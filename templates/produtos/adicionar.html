@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card shadow border-0 product-form-card">
                 <div class="card-body p-4">
-                    <!-- Cabeçalho -->
+
                     <h2 class="text-center product-form-header">
                         Adicionar Novo Produto
                     </h2>
@@ -15,14 +15,13 @@
                     <form method="post" enctype="multipart/form-data" class="mt-4">
                         {% csrf_token %}
                         
-                        <!-- Erros do formulário -->
+  
                         {% if form.errors %}
                         <div class="alert alert-danger mb-4">
                             Por favor, corrija os erros abaixo.
                         </div>
                         {% endif %}
                         
-                        <!-- Campos do formulário -->
                         {% for field in form %}
                         <div class="mb-4">
                             <label for="{{ field.id_for_label }}" class="product-form-label">
@@ -31,7 +30,7 @@
                             </label>
                             
                             {% if field.name == 'imagem' %}
-                                <!-- Campo de upload de imagem -->
+
                                 <input type="file"
                                        name="{{ field.name }}"
                                        id="{{ field.id_for_label }}"
@@ -39,7 +38,6 @@
                                        {% if field.field.required %}required{% endif %}>
                             
                             {% elif field.name == 'categoria' %}
-                                <!-- Campo de categoria como select -->
                                 <select name="{{ field.name }}"
                                         id="{{ field.id_for_label }}"
                                         class="product-form-control"
@@ -52,7 +50,6 @@
                                 </select>
                             
                             {% else %}
-                                <!-- Campos normais -->
                                 <input type="{{ field.field.widget.input_type }}"
                                        name="{{ field.name }}"
                                        id="{{ field.id_for_label }}"
@@ -73,7 +70,6 @@
                         </div>
                         {% endfor %}
                         
-                        <!-- Botão de submit -->
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="product-form-submit py-3">
                                 Salvar Produto
@@ -81,7 +77,6 @@
                         </div>
                     </form>
                     
-                    <!-- Link para voltar -->
                     <div class="mt-4 text-center">
                         <a href="{% url 'produtos:lista_produtos' %}" class="text-decoration-none fw-semibold" style="color: #37A45A;">
                             ← Voltar para a lista de produtos

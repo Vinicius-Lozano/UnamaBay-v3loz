@@ -1,19 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <!-- Logo -->
+
         <a class="navbar-brand" href="{% url 'home' %}">
             <i class="bi bi-shop"></i> UnamaBay
         </a>
 
-        <!-- Botão Hambúrguer -->
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Itens do Menu -->
         <div class="collapse navbar-collapse" id="navbarContent">
             {% if user.is_authenticated %}
-                <!-- Menu para usuários logados -->
+
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'produtos:lista_produtos' %}">
@@ -24,7 +23,7 @@
 
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_staff %}
-                    <!-- Dropdown Admin -->
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-gear"></i> Administração
@@ -51,7 +50,7 @@
                     </li>
                     {% endif %}
 
-                    <!-- Carrinho (só para logados) -->
+
                     <li class="nav-item me-3">
                         <a class="nav-link position-relative" href="{% url 'cart:detail' %}">
                             <i class="bi bi-cart3"></i> Carrinho
@@ -63,7 +62,6 @@
                         </a>
                     </li>
 
-                    <!-- Dropdown do Usuário -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i> {{ user.username }}
@@ -83,7 +81,7 @@
                     </li>
                 </ul>
             {% else %}
-                <!-- Menu para visitantes (não logados) -->
+
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="btn btn-outline-light me-2" href="{% url 'accounts:login' %}">

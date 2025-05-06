@@ -29,7 +29,7 @@ class CartAddView(LoginRequiredMixin, View):
             cd = form.cleaned_data
             quantity = cd['quantity']
             
-            # Verificação de estoque total considerando itens existentes
+            
             existing_quantity = cart.items.filter(product=product).aggregate(
                 Sum('quantity'))['quantity__sum'] or 0
             
@@ -45,7 +45,6 @@ class CartAddView(LoginRequiredMixin, View):
             )
             
             if not created:
-                # Verifica novamente para concorrência
                 if (item.quantity + quantity) > product.estoque:
                     messages.error(request,
                         f"Estoque insuficiente após atualização. Disponível: {product.estoque - item.quantity}")
@@ -62,12 +61,11 @@ class CartAddView(LoginRequiredMixin, View):
         return redirect('cart:detail')
 
 class CartUpdateView(LoginRequiredMixin, UpdateView):
-    model = CartItem  # Define o modelo
+    model = CartItem  
     form_class = CartUpdateForm
     template_name = 'cart/update.html'
     success_url = reverse_lazy('cart:detail')
 
-    # Método ESSENCIAL para filtrar os itens do usuário
     def get_queryset(self):
         return CartItem.objects.filter(cart__user=self.request.user)
 
@@ -81,7 +79,6 @@ class CartUpdateView(LoginRequiredMixin, UpdateView):
         new_quantity = form.cleaned_data['quantity']
         product = self.object.product
         
-        # Verificação de estoque com lock
         with transaction.atomic():
             product = Produto.objects.select_for_update().get(pk=product.id)
             
